@@ -59,6 +59,7 @@ class Bank :
 
             Bank.__update()
     
+    
     def dopositemoney(self):
         accnumber = input(f"Please enter your account number :  ")
         pin = int(input(f"Please enter  your pin number : "))
@@ -79,7 +80,6 @@ class Bank :
 
 
 
-
     def withdrawmoney(self):
         accnumber = input(f"Please enter your account number :  ")
         pin = int(input(f"Please enter  your pin number : "))
@@ -97,8 +97,6 @@ class Bank :
                 userdata[0]['balance'] -= amount
                 Bank.__update()
                 print(f'Amount is withdrawn sucessfully. ') 
-
-
 
 
     def showdetails(self):
@@ -157,6 +155,30 @@ class Bank :
             Bank.__update()
             print(f"Details are updated sucessfully . ")
 
+
+
+    def delete(self):
+        accnumber = input(f"Please enter your account number :  ")
+        pin = int(input(f"Please enter  your pin number : "))
+        userdata=[i for i in Bank.data if i['accountNo.'] == accnumber and i['pin'] == pin]
+
+        if userdata == False :
+            print(f"No such Data exists in the database . ")
+        else:
+            print(f"'y' for YES ")
+            print(f"'n' for NO ")
+            check = input(f"Do you wnat ot delete your account (y/n)? : ")
+
+            if check =='n' or check == 'N':
+                print('Bypassed.')
+                pass
+            else:
+                index = Bank.data.index(userdata[0])
+                Bank.data.pop(index)
+
+                print(f"Account deleted sucessfully . ")
+                Bank.__update()
+
 user = Bank()
 print("Press the following to start : ")
 print(f' 1. Create an account.')
@@ -182,3 +204,6 @@ if check == 4:
 
 if check == 5:
     user.updatedetails()
+
+if check == 6:
+    user.delete()
